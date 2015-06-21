@@ -20,10 +20,10 @@
 #
 # CREATE EXTENSION postgis;
 
-export NAME='postgresql'
-export DATA_ROOT='/srv'
-export POSTGRESQL_DATA="${DATA_ROOT}/${NAME}/data"
-export POSTGRESQL_LOG="${DATA_ROOT}/${NAME}/log"
+NAME='postgresql'
+DATA_ROOT='/srv'
+POSTGRESQL_DATA="${DATA_ROOT}/${NAME}/data"
+POSTGRESQL_LOG="${DATA_ROOT}/${NAME}/log"
 
 mkdir -p "$POSTGRESQL_DATA"
 mkdir -p "$POSTGRESQL_LOG"
