@@ -11,6 +11,7 @@ RUN apt-get update -q -q && \
  echo "listen_addresses = '*'" >> /etc/postgresql/9.3/main/postgresql.conf && \
  echo 'mappostgres postgres postgres' >> /etc/postgresql/9.3/main/pg_ident.conf && \
  echo 'mappostgres root postgres' >> /etc/postgresql/9.3/main/pg_ident.conf && \
+ echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf && \
  echo 'hostssl all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf && \
  sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/9.3/main/pg_hba.conf
 
