@@ -8,11 +8,11 @@ RUN apt-get update -q -q && \
  apt-get --no-install-recommends --yes --force-yes install postgresql-9.3 postgresql-9.3-postgis-2.1 && \
  mkdir -m 700 /var/lib/postgresql.orig && \
  mv /var/lib/postgresql/* /var/lib/postgresql.orig/ && \
- echo "listen_addresses = '*'" >> /etc/postgresql/9.3/main/postgresql.conf && \
  echo 'mappostgres postgres postgres' >> /etc/postgresql/9.3/main/pg_ident.conf && \
  echo 'mappostgres root postgres' >> /etc/postgresql/9.3/main/pg_ident.conf && \
  echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf && \
  echo 'hostssl all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf && \
- sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/9.3/main/pg_hba.conf
+ sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/9.3/main/pg_hba.conf && \
+ echo "include_dir = 'conf.d'" >> /etc/postgresql/9.3/main/postgresql.conf
 
 COPY ./etc /etc
