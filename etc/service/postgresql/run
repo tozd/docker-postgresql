@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
-POSTGRES=/usr/lib/postgresql/9.3/bin/postgres
-DATADIR=/var/lib/postgresql/9.3/main
-CONFDIR=/etc/postgresql/9.3/main
+POSTGRES=/usr/lib/postgresql/9.4/bin/postgres
+DATADIR=/var/lib/postgresql/9.4/main
+CONFDIR=/etc/postgresql/9.4/main
 
 mkdir -p "${DATADIR}"
 chmod 700 "${DATADIR}"
@@ -10,7 +10,7 @@ chown postgres:postgres "${DATADIR}"
 
 # If data directory is empty, we restore it from our copy of initial PostgreSQL database files.
 if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
-  cp -a /var/lib/postgresql.orig/9.3/main/* "${DATADIR}/"
+  cp -a /var/lib/postgresql.orig/9.4/main/* "${DATADIR}/"
 fi
 
 # Is there any other script to run here?
