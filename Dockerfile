@@ -2,6 +2,9 @@ FROM tozd/runit
 
 EXPOSE 5432/tcp
 
+VOLUME /var/log/postgresql
+VOLUME /var/lib/postgresql
+
 RUN apt-get update -q -q && \
  apt-get --yes --force-yes install wget ca-certificates && \
  echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
