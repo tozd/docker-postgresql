@@ -2,6 +2,9 @@ FROM tozd/runit
 
 EXPOSE 5432/tcp
 
+VOLUME /var/log/postgresql
+VOLUME /var/lib/postgresql
+
 RUN apt-get update -q -q && \
  echo locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8 | debconf-set-selections && \
  echo locales locales/default_environment_locale select en_US.UTF-8 | debconf-set-selections && \
