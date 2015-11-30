@@ -14,7 +14,7 @@ the container, for example, for a container named `postgresql`:
 
 ```
 $ docker exec -t -i postgresql /bin/bash
-> psql -U postgres postgres
+$ psql -U postgres postgres
 ```
 
 You can create users:
