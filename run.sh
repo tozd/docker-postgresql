@@ -1,24 +1,7 @@
 #!/bin/bash -e
 
 # An example script to run PostgreSQL in production. It uses data volumes under the $DATA_ROOT directory.
-# By default /srv. After first run, you can connect to the PostgreSQL as an administrator from the inside
-# the container, by default:
-#
-# docker exec -t -i postgresql /bin/bash
-#
-# psql -U postgres postgres
-#
-# You can create users:
-#
-# createuser -U postgres -DRS -PE <USERNAME>
-#
-# You can create database:
-#
-# createdb -U postgres -O <USERNAME> <DBNAME>
-#
-# You can install PostGIS into your database by connecting to it and running:
-#
-# CREATE EXTENSION postgis;
+# By default /srv.
 
 NAME='postgresql'
 DATA_ROOT='/srv'
