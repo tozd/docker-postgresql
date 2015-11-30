@@ -34,3 +34,7 @@ You can install PostGIS into your database by connecting to it and running:
 ```
 > CREATE EXTENSION postgis;
 ```
+
+If you are extending this image, you can add a script `/etc/service/postgresql/run.initialization`
+which will be run at a container startup, after the container is initialized, but before the
+PostgreSQL daemon is run.
