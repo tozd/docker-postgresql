@@ -10,7 +10,7 @@
 #
 # You can create users:
 #
-# createuser -U postgres -DRS -P <USERNAME>
+# createuser -U postgres -DRS -PE <USERNAME>
 #
 # You can create database:
 #
