@@ -38,3 +38,14 @@ You can install PostGIS into your database by connecting to it and running:
 If you are extending this image, you can add a script `/etc/service/postgresql/run.initialization`
 which will be run at a container startup, after the container is initialized, but before the
 PostgreSQL daemon is run.
+
+When data volume is initialized at the first startup, you can instruct the image to automatically
+create an user and/or a database by passing environment variables to a container:
+
+* `PGSQL_ROLE_1_USERNAME` - username of a user to create
+* `PGSQL_ROLE_1_PASSWORD` - password for the created user
+* `PGSQL_ROLE_1_FLAGS` – any flags at user creation, by default `LOGIN`
+* `PGSQL_DB_1_NAME` – name of a database to be created
+* `PGSQL_DB_1_OWNER` – username of the owner of the database
+* `PGSQL_DB_1_ENCODING` – encoding for the database, by default `UNICODE`
+* `PGSQL_DB_1_POSTGIS` – if set, PostGIS will be installed in the database

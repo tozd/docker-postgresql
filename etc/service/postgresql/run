@@ -4,6 +4,12 @@ POSTGRES=/usr/lib/postgresql/9.4/bin/postgres
 DATADIR=/var/lib/postgresql/9.4/main
 CONFDIR=/etc/postgresql/9.4/main
 
+pgsql_command()
+{
+  local cmd="$1"
+  sudo -u postgres "${POSTGRES}" --single -E -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" <<< "${cmd}" 2>&1
+}
+
 mkdir -p "${DATADIR}"
 chmod 700 "${DATADIR}"
 chown postgres:postgres "${DATADIR}"
@@ -11,6 +17,28 @@ chown postgres:postgres "${DATADIR}"
 # If data directory is empty, we restore it from our copy of initial PostgreSQL database files.
 if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
   cp -a /var/lib/postgresql.orig/9.4/main/* "${DATADIR}/"
+
+  # TODO: Support automatic creation of more than one role and database.
+  if [[ -n "${PGSQL_ROLE_1_USERNAME}" && -n "${PGSQL_ROLE_1_PASSWORD}" ]]; then
+    pgsql_command "CREATE ROLE ${PGSQL_ROLE_1_USERNAME} WITH ${PGSQL_ROLE_1_FLAGS} ENCRYPTED PASSWORD '${PGSQL_ROLE_1_PASSWORD}';"
+  fi
+  if [[ -n "${PGSQL_DB_1_NAME}" && -n "${PGSQL_DB_1_OWNER}" ]]; then
+    pgsql_command "CREATE DATABASE ${PGSQL_DB_1_NAME} WITH OWNER ${PGSQL_DB_1_OWNER} ENCODING '${PGSQL_DB_1_ENCODING:-UNICODE}';"
+
+    if [[ -n "${PGSQL_DB_1_POSTGIS}" ]]; then
+      # Cannot create PostGIS extension in single-user mode, so we need to
+      # start the server up for a bit; listen on localhost so external users
+      # don't connect during this short initialization phase.
+      sudo -u postgres "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" -c listen_addresses=127.0.0.1 1>/dev/null 2>&1 &
+      TMP_PID="$!"
+      while ! pg_isready; do
+        sleep 1
+      done
+      /usr/bin/psql -U postgres -c "CREATE EXTENSION postgis;" -d "${PGSQL_DB_1_NAME}" 2>&1 || true
+      kill "$TMP_PID"
+      wait "$TMP_PID"
+    fi
+  fi
 fi
 
 # Is there any other script to run here?
