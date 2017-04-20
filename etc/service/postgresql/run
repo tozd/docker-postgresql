@@ -41,6 +41,10 @@ if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
   fi
 fi
 
+# create .pgpass for automated dump
+echo "localhost:*:${PGSQL_DB_1_NAME}:${PGSQL_ROLE_1_USERNAME}:${PGSQL_ROLE_1_PASSWORD}" > ~/.pgpass
+chmod 0600 ~/.pgpass
+
 # Is there any other script to run here?
 [ -f /etc/service/postgresql/run.initialization ] && source /etc/service/postgresql/run.initialization
 
