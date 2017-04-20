@@ -1,6 +1,11 @@
 #!/bin/bash -e
 
-VERSION=9.5
+VERSION=$(ls -1 /var/lib/postgresql.orig/)
+
+if [[ $(echo "$VERSION" | wc -l) -ge 2 ]]; then
+  echo "Multiple versions?"
+  exit 1
+fi
 
 POSTGRES="/usr/lib/postgresql/$VERSION/bin/postgres"
 DATADIR="/var/lib/postgresql/$VERSION/main"
