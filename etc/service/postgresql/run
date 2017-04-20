@@ -1,8 +1,10 @@
 #!/bin/bash -e
 
-POSTGRES=/usr/lib/postgresql/9.5/bin/postgres
-DATADIR=/var/lib/postgresql/9.5/main
-CONFDIR=/etc/postgresql/9.5/main
+VERSION=9.5
+
+POSTGRES="/usr/lib/postgresql/$VERSION/bin/postgres"
+DATADIR="/var/lib/postgresql/$VERSION/main"
+CONFDIR="/etc/postgresql/$VERSION/main"
 
 pgsql_command()
 {
@@ -16,7 +18,7 @@ chown postgres:postgres "${DATADIR}"
 
 # If data directory is empty, we restore it from our copy of initial PostgreSQL database files.
 if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
-  cp -a /var/lib/postgresql.orig/9.5/main/* "${DATADIR}/"
+  cp -a /var/lib/postgresql.orig/$VERSION/main/* "${DATADIR}/"
 
   # TODO: Support automatic creation of more than one role and database.
   if [[ -n "${PGSQL_ROLE_1_USERNAME}" && -n "${PGSQL_ROLE_1_PASSWORD}" ]]; then
