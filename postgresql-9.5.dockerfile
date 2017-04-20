@@ -1,4 +1,4 @@
-FROM tozd/runit
+FROM tozd/runit:ubuntu-trusty
 
 EXPOSE 5432/tcp
 
@@ -37,3 +37,4 @@ RUN apt-get update -q -q && \
  chown postgres:postgres /var/run/postgresql/9.5-main.pg_stat_tmp
 
 COPY ./etc /etc
+COPY ./postgresql /etc/postgresql/9.5
