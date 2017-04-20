@@ -1,6 +1,6 @@
 Image providing [PostgreSQL](http://www.postgresql.org/) as a service.
 
-Different branches/tags provide different PostgreSQL versions.
+Different Docker tags provide different PostgreSQL versions.
 
 You should make sure you mount data volume (`/var/lib/postgresql`) so that you do not
 lose database data when you are recreating a container. If a volume is empty, image
