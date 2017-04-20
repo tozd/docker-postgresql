@@ -35,6 +35,11 @@ You can install PostGIS into your database by connecting to it and running:
 > CREATE EXTENSION postgis;
 ```
 
+You can backup a database from outside the container:
+```
+$ docker exec postgresql pg_dump -Fc -U postgres <DBNAME> > /var/backups/<DBNAME>.pgdump
+```
+
 If you are extending this image, you can add a script `/etc/service/postgresql/run.initialization`
 which will be run at a container startup, after the container is initialized, but before the
 PostgreSQL daemon is run.
