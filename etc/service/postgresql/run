@@ -30,7 +30,7 @@ if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
     pgsql_command "CREATE ROLE ${PGSQL_ROLE_1_USERNAME} WITH ${PGSQL_ROLE_1_FLAGS} ENCRYPTED PASSWORD '${PGSQL_ROLE_1_PASSWORD}';"
   fi
   if [[ -n "${PGSQL_DB_1_NAME}" && -n "${PGSQL_DB_1_OWNER}" ]]; then
-    pgsql_command "CREATE DATABASE ${PGSQL_DB_1_NAME} WITH OWNER ${PGSQL_DB_1_OWNER} ENCODING '${PGSQL_DB_1_ENCODING:-UNICODE}';"
+    pgsql_command "CREATE DATABASE ${PGSQL_DB_1_NAME} WITH OWNER ${PGSQL_DB_1_OWNER} ENCODING '${PGSQL_DB_1_ENCODING:-UNICODE}' LC_COLLATE '${PSQL_DB_1_LC_COLLATE}' LC_CTYPE '${PSQL_DB_1_LC_CTYPE}' TEMPLATE ${PSQL_DB_1_TEMPLATE:-DEFAULT};"
 
     if [[ -n "${PGSQL_DB_1_POSTGIS}" ]]; then
       # Cannot create PostGIS extension in single-user mode, so we need to
