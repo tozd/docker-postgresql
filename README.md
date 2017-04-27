@@ -53,4 +53,7 @@ create an user and/or a database by passing environment variables to a container
 * `PGSQL_DB_1_NAME` – name of a database to be created
 * `PGSQL_DB_1_OWNER` – username of the owner of the database, must be set for database creation to work
 * `PGSQL_DB_1_ENCODING` – encoding for the database, by default `UNICODE`
+* `PGSQL_DB_1_LC_COLLATE` – collation order for the database, by default empty
+* `PGSQL_DB_1_LC_CTYPE` – character classification for the database, by default empty
+* `PGSQL_DB_1_TEMPLATE` – name of template from which to create the new database, by default `DEFAULT`
 * `PGSQL_DB_1_POSTGIS` – if set, PostGIS will be installed in the database
