@@ -40,6 +40,11 @@ You can backup a database from outside the container:
 $ docker exec postgresql pg_dump -Fc -U postgres <DBNAME> > /var/backups/<DBNAME>.pgdump
 ```
 
+You can restore a database from outside the container:
+```
+$ cat /var/backups/<DBNAME>.pgdump | docker exec -i postgresql pg_restore -Fc -U postgres -d <DBNAME>
+```
+
 If you are extending this image, you can add a script `/etc/service/postgresql/run.initialization`
 which will be run at a container startup, after the container is initialized, but before the
 PostgreSQL daemon is run.
