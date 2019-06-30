@@ -1,4 +1,4 @@
-FROM tozd/runit:ubuntu-trusty
+FROM tozd/runit:ubuntu-xenial
 
 EXPOSE 5432/tcp
 
@@ -18,8 +18,8 @@ ENV PGSQL_DB_1_TEMPLATE=DEFAULT
 ENV PGSQL_DB_1_POSTGIS=
 
 RUN apt-get update -q -q && \
- apt-get --yes --force-yes install wget ca-certificates && \
- echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+ apt-get --yes install wget ca-certificates && \
+ echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
  apt-get update -q -q && \
  locale-gen --no-purge en_US.UTF-8 && \
@@ -27,7 +27,7 @@ RUN apt-get update -q -q && \
  echo locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8 | debconf-set-selections && \
  echo locales locales/default_environment_locale select en_US.UTF-8 | debconf-set-selections && \
  dpkg-reconfigure locales && \
- apt-get --no-install-recommends --yes --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-9.5-postgis-2.2-scripts && \
+ apt-get --no-install-recommends --yes install postgresql-9.5 postgresql-9.5-postgis-2.2 postgresql-9.5-postgis-2.2-scripts && \
  mkdir -m 700 /var/lib/postgresql.orig && \
  mv /var/lib/postgresql/* /var/lib/postgresql.orig/ && \
  echo 'mappostgres postgres postgres' >> /etc/postgresql/9.5/main/pg_ident.conf && \
