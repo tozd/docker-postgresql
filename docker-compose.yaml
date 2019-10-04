@@ -1,0 +1,10 @@
+version: '3.2'
+services:
+  postgresql:
+    build:
+      context: .
+      dockerfile: postgresql-10.dockerfile
+    container_name: postgresql
+    volumes:
+      - ./srv/postgresql/log:/var/log/postgresql
+      - ./srv/postgresql/data:/var/lib/postgresql
