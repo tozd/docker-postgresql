@@ -37,7 +37,8 @@ RUN apt-get update -q -q && \
  sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/9.6/main/pg_hba.conf && \
  echo "include_dir = 'conf.d'" >> /etc/postgresql/9.6/main/postgresql.conf && \
  mkdir -p /var/run/postgresql/9.6-main.pg_stat_tmp && \
- chown postgres:postgres /var/run/postgresql/9.6-main.pg_stat_tmp
+ chown postgres:postgres /var/run/postgresql/9.6-main.pg_stat_tmp && \
+ apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
 COPY ./etc /etc
 COPY ./postgresql /etc/postgresql/9.6

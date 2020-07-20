@@ -31,7 +31,8 @@ RUN apt-get update -q -q && \
  echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf && \
  echo 'hostssl all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf && \
  sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/9.3/main/pg_hba.conf && \
- echo "include_dir = 'conf.d'" >> /etc/postgresql/9.3/main/postgresql.conf
+ echo "include_dir = 'conf.d'" >> /etc/postgresql/9.3/main/postgresql.conf && \
+ apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
 COPY ./etc /etc
 COPY ./postgresql /etc/postgresql/9.3
