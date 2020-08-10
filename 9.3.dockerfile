@@ -18,11 +18,6 @@ ENV PGSQL_DB_1_TEMPLATE=DEFAULT
 ENV PGSQL_DB_1_POSTGIS=
 
 RUN apt-get update -q -q && \
- locale-gen --no-purge en_US.UTF-8 && \
- update-locale LANG=en_US.UTF-8 && \
- echo locales locales/locales_to_be_generated multiselect en_US.UTF-8 UTF-8 | debconf-set-selections && \
- echo locales locales/default_environment_locale select en_US.UTF-8 | debconf-set-selections && \
- dpkg-reconfigure locales && \
  apt-get --no-install-recommends --yes --force-yes install postgresql-9.3 postgresql-9.3-postgis-2.1 && \
  mkdir -m 700 /var/lib/postgresql.orig && \
  mv /var/lib/postgresql/* /var/lib/postgresql.orig/ && \
