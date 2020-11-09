@@ -2,6 +2,13 @@
 
 <https://gitlab.com/tozd/docker/postgresql>
 
+Available as:
+
+* [`tozd/postgresql`](https://hub.docker.com/r/tozd/postgresql)
+* [`registry.gitlab.com/tozd/docker/postgresql`](https://gitlab.com/tozd/docker/postgresql/container_registry)
+
+## Description
+
 Image providing [PostgreSQL](http://www.postgresql.org/) as a service.
 
 Different Docker tags provide different PostgreSQL versions.
