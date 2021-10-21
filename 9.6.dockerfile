@@ -22,7 +22,7 @@ RUN apt-get update -q -q && \
  echo "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
  apt-get update -q -q && \
- apt-get --no-install-recommends --yes --force-yes install postgresql-9.6 postgresql-9.6-postgis-2.3 postgresql-9.6-postgis-2.3-scripts && \
+ apt-get --no-install-recommends --yes --force-yes install postgresql-9.6 postgresql-9.6-postgis-2.4 postgresql-9.6-postgis-2.4-scripts && \
  mkdir -m 700 /var/lib/postgresql.orig && \
  mv /var/lib/postgresql/* /var/lib/postgresql.orig/ && \
  echo 'mappostgres postgres postgres' >> /etc/postgresql/9.6/main/pg_ident.conf && \
