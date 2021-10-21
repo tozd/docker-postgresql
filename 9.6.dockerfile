@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/tozd/docker/runit:ubuntu-trusty
+FROM registry.gitlab.com/tozd/docker/runit:ubuntu-bionic
 
 EXPOSE 5432/tcp
 
@@ -19,9 +19,7 @@ ENV PGSQL_DB_1_POSTGIS=
 
 RUN apt-get update -q -q && \
  apt-get --yes --force-yes install wget ca-certificates && \
- sed -i 's/\(.*DST_Root_CA_X3.crt\)/!\1/' /etc/ca-certificates.conf && \
- update-ca-certificates && \
- echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+ echo "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
  apt-get update -q -q && \
  apt-get --no-install-recommends --yes --force-yes install postgresql-9.6 postgresql-9.6-postgis-2.3 postgresql-9.6-postgis-2.3-scripts && \
