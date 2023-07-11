@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/tozd/docker/dinit:ubuntu-trusty
+FROM registry.gitlab.com/tozd/docker/dinit:ubuntu-jammy
 
 EXPOSE 5432/tcp
 
@@ -18,7 +18,11 @@ ENV PGSQL_DB_1_TEMPLATE=DEFAULT
 ENV PGSQL_DB_1_POSTGIS=
 
 RUN apt-get update -q -q && \
-  apt-get --no-install-recommends --yes --force-yes install postgresql-9.3 postgresql-9.3-postgis-2.1 && \
+  apt-get --yes --force-yes install wget ca-certificates && \
+  echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+  apt-get update -q -q && \
+  apt-get --no-install-recommends --yes --force-yes install postgresql-9.3 postgresql-9.3-postgis-2.4 postgresql-9.3-postgis-2.4-scripts && \
   mkdir -m 700 /var/lib/postgresql.orig && \
   mv /var/lib/postgresql/* /var/lib/postgresql.orig/ && \
   echo 'mappostgres postgres postgres' >> /etc/postgresql/9.3/main/pg_ident.conf && \
@@ -27,6 +31,8 @@ RUN apt-get update -q -q && \
   echo 'hostssl all all 0.0.0.0/0 md5' >> /etc/postgresql/9.3/main/pg_hba.conf && \
   sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/9.3/main/pg_hba.conf && \
   echo "include_dir = 'conf.d'" >> /etc/postgresql/9.3/main/postgresql.conf && \
+  mkdir -p /var/run/postgresql/9.3-main.pg_stat_tmp && \
+  chown postgres:postgres /var/run/postgresql/9.3-main.pg_stat_tmp && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
 COPY ./etc/service/postgresql /etc/service/postgresql

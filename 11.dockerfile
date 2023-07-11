@@ -22,18 +22,18 @@ RUN apt-get update -q -q && \
   echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
   apt-get update -q -q && \
-  apt-get --no-install-recommends --yes --force-yes install postgresql-9.6 postgresql-9.6-postgis-2.4 postgresql-9.6-postgis-2.4-scripts && \
+  apt-get --no-install-recommends --yes --force-yes install postgresql-11 postgresql-11-postgis-2.4 postgresql-11-postgis-2.4-scripts && \
   mkdir -m 700 /var/lib/postgresql.orig && \
   mv /var/lib/postgresql/* /var/lib/postgresql.orig/ && \
-  echo 'mappostgres postgres postgres' >> /etc/postgresql/9.6/main/pg_ident.conf && \
-  echo 'mappostgres root postgres' >> /etc/postgresql/9.6/main/pg_ident.conf && \
-  echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/9.6/main/pg_hba.conf && \
-  echo 'hostssl all all 0.0.0.0/0 md5' >> /etc/postgresql/9.6/main/pg_hba.conf && \
-  sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/9.6/main/pg_hba.conf && \
-  echo "include_dir = 'conf.d'" >> /etc/postgresql/9.6/main/postgresql.conf && \
-  mkdir -p /var/run/postgresql/9.6-main.pg_stat_tmp && \
-  chown postgres:postgres /var/run/postgresql/9.6-main.pg_stat_tmp && \
+  echo 'mappostgres postgres postgres' >> /etc/postgresql/11/main/pg_ident.conf && \
+  echo 'mappostgres root postgres' >> /etc/postgresql/11/main/pg_ident.conf && \
+  echo 'host all all 0.0.0.0/0 md5' >> /etc/postgresql/11/main/pg_hba.conf && \
+  echo 'hostssl all all 0.0.0.0/0 md5' >> /etc/postgresql/11/main/pg_hba.conf && \
+  sed -r -i 's/local\s+all\s+postgres\s+peer/local all postgres peer map=mappostgres/' /etc/postgresql/11/main/pg_hba.conf && \
+  echo "include_dir = 'conf.d'" >> /etc/postgresql/11/main/postgresql.conf && \
+  mkdir -p /var/run/postgresql/11-main.pg_stat_tmp && \
+  chown postgres:postgres /var/run/postgresql/11-main.pg_stat_tmp && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
 COPY ./etc/service/postgresql /etc/service/postgresql
-COPY ./postgresql /etc/postgresql/9.6
+COPY ./postgresql /etc/postgresql/11
