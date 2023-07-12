@@ -14,7 +14,7 @@ CONFDIR="/etc/postgresql/$VERSION/main"
 pgsql_command()
 {
   local cmd="$1"
-  sudo -u postgres "${POSTGRES}" --single -E -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" <<< "${cmd}" 2>&1
+  chpst -u postgres:postgres:ssl-cert "${POSTGRES}" --single -E -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" <<< "${cmd}" 2>&1
 }
 
 mkdir -p "${DATADIR}"
@@ -36,7 +36,7 @@ if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
       # Cannot create PostGIS extension in single-user mode, so we need to
       # start the server up for a bit; listen on localhost so external users
       # don't connect during this short initialization phase.
-      sudo -u postgres "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" -c listen_addresses=127.0.0.1 1>/dev/null 2>&1 &
+      chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" -c listen_addresses=127.0.0.1 2>&1 &
       TMP_PID="$!"
       while ! pg_isready; do
         sleep 1
