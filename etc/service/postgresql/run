@@ -14,7 +14,9 @@ CONFDIR="/etc/postgresql/$VERSION/main"
 pgsql_command()
 {
   local cmd="$1"
-  chpst -u postgres:postgres:ssl-cert "${POSTGRES}" --single -E -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" <<< "${cmd}" 2>&1
+  # We hide the prompt by redirecting stdout to /dev/null and then redirect stderr to (new) stdout.
+  # One reason we are hidding the prompt is because it does not end with a newline so it merges with the next log line.
+  chpst -u postgres:postgres:ssl-cert "${POSTGRES}" --single -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" <<< "${cmd}" 2>&1 >/dev/null
 }
 
 mkdir -p "${DATADIR}"
