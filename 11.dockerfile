@@ -17,6 +17,8 @@ ENV PGSQL_DB_1_LC_CTYPE=
 ENV PGSQL_DB_1_TEMPLATE=DEFAULT
 ENV PGSQL_DB_1_POSTGIS=
 
+ENV LOG_TO_STDOUT=0
+
 RUN apt-get update -q -q && \
   apt-get --yes --force-yes install wget ca-certificates && \
   echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \

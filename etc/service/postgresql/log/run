@@ -1,6 +1,10 @@
 #!/bin/bash -e
 
-mkdir -p /var/log/postgresql
-chown nobody:nogroup /var/log/postgresql
+if [ "${LOG_TO_STDOUT}" != "1" ]; then
+  mkdir -p /var/log/postgresql
+  chown nobody:nogroup /var/log/postgresql
 
-exec chpst -u nobody:nogroup svlogd -tt /var/log/postgresql
+  exec chpst -u nobody:nogroup svlogd -tt /var/log/postgresql
+else
+  exec chpst -u nobody:nogroup regex2json "^\\s*(?:(?P<time___optional>\\S+ \\d+ \\d+:\\d+:\\d+) )?(?:\\[(?P<c___optional>[^\\]]+)\\] )?(?P<msg>.+?)\\s*$"
+fi
