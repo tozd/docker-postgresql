@@ -38,7 +38,7 @@ if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
       # don't connect during this short initialization phase.
       chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" -c listen_addresses=127.0.0.1 2>&1 &
       TMP_PID="$!"
-      while ! pg_isready; do
+      while ! pg_isready >/dev/null ; do
         sleep 1
       done
       /usr/bin/psql -U postgres -c "CREATE EXTENSION postgis;" -d "${PGSQL_DB_1_NAME}" 2>&1 || true
