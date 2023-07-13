@@ -66,6 +66,8 @@ If you are extending this image, you can add a script `/etc/service/postgresql/r
 which will be run at a container startup, after the container is initialized, but before the
 PostgreSQL daemon is run.
 
+When `LOG_TO_STDOUT` is set to `1`, Docker image logs output to stdout and stderr. All stdout output is JSON.
+
 There are two ways to use this image. As a database which is shared between multiple
 other services and that you create databases and users accordingly. Or as a database
 just for one user/app.
