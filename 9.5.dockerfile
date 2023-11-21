@@ -21,7 +21,7 @@ ENV LOG_TO_STDOUT=0
 
 RUN apt-get update -q -q && \
   apt-get --yes --force-yes install wget ca-certificates && \
-  echo "deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+  echo "deb http://apt-archive.postgresql.org/pub/repos/apt/ bionic-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
   apt-get update -q -q && \
   apt-get --no-install-recommends --yes --force-yes install postgresql-9.5 postgresql-9.5-postgis-2.4 postgresql-9.5-postgis-2.4-scripts && \
