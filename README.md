@@ -23,6 +23,7 @@ Available as:
 - `13`: PostgreSQL 13
 - `14`: PostgreSQL 14
 - `15`: PostgreSQL 15
+- `16`: PostgreSQL 16
 
 ## Volumes
 
@@ -41,7 +42,7 @@ To optionally initialize at the first startup:
 - `PGSQL_DB_1_ENCODING`: Encoding for the database. Default is `UNICODE`.
 - `PGSQL_DB_1_LC_COLLATE`: Collation order for the database. Default is empty.
 - `PGSQL_DB_1_LC_CTYPE`: Character classification for the database. Default is empty.
-- `PGSQL_DB_1_TEMPLATE: Name of the template from which to create the new database. Default is `DEFAULT`.
+- `PGSQL_DB_1_TEMPLATE`: Name of the template from which to create the new database. Default is `DEFAULT`.
 - `PGSQL_DB_1_POSTGIS`: If set, PostGIS will be installed in the database.
 
 Other:
