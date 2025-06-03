@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/tozd/docker/dinit:ubuntu-jammy
+FROM registry.gitlab.com/tozd/docker/dinit:ubuntu-noble
 
 EXPOSE 5432/tcp
 
@@ -21,8 +21,9 @@ ENV LOG_TO_STDOUT=0
 
 RUN apt-get update -q -q && \
   apt-get --yes --force-yes install wget ca-certificates && \
-  echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+  mkdir -p /usr/share/postgresql-common/pgdg && \
+  wget --quiet -O /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc && \
+  echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt/ noble-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
   apt-get update -q -q && \
   apt-get --no-install-recommends --yes --force-yes install postgresql-16 postgresql-16-postgis-3 postgresql-16-postgis-3-scripts && \
   mkdir -m 700 /var/lib/postgresql.orig && \
