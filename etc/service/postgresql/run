@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+trap 'echo "ERROR: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' ERR
+
 VERSION=$(ls -1 /var/lib/postgresql.orig/)
 
 if [[ $(echo "$VERSION" | wc -l) -ge 2 ]]; then
