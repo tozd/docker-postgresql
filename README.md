@@ -25,6 +25,7 @@ Available as:
 - `15`: PostgreSQL 15
 - `16`: PostgreSQL 16
 - `17`: PostgreSQL 17
+- `18`: PostgreSQL 18
 
 ## Volumes
 
