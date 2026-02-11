@@ -39,4 +39,5 @@ RUN apt-get update -q -q && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
 COPY ./etc/service/postgresql /etc/service/postgresql
+COPY ./log /etc/service/postgresql/log
 COPY ./postgresql /etc/postgresql/18
