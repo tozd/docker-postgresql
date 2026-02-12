@@ -8,8 +8,17 @@ if [ "${LOG_TO_STDOUT}" != "1" ]; then
 
   exec chpst -u nobody:nogroup svlogd -tt /var/log/postgresql
 else
+  VERSION=$(ls -1 /var/lib/postgresql.orig/)
+
+  if [[ $(echo "$VERSION" | wc -l) -ge 2 ]]; then
+    echo "Multiple versions?"
+    exit 1
+  fi
+
+  DATADIR="/var/lib/postgresql/$VERSION/main"
+
   # Redirect PostgreSQL's log to stdout.
-  ln -sf /dev/stdout /var/run/postgresql.log
+  ln -sf /dev/stdout "${DATADIR}/log/postgresql.log"
 
   # TODO: Exit with 115. See: https://gitlab.com/tozd/dinit/-/issues/1
   exec chpst -u nobody:nogroup cat
