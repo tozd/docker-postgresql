@@ -71,4 +71,10 @@ ln -sf /dev/stdout "${DATADIR}/log/postgresql.json"
 chown postgres:postgres /dev/stdout
 
 # PostgreSQL sends initial (before JSON logging is enabled) messages to stderr.
+# We cannot redirect stdout to stderr though (just in case something is written to stdout, too), because it fails
+# with permission error. We can fix this with chown of /etc/stderr, but then database process shuts down itself
+# immediately after startup with "received smart shutdown request" for some reason. Redirecting stderr to stdout
+# works though, but then dinit complains that there is non-JSON on stdout.
+# TODO: Improve regex2json to improve behavior here.
+#       See: https://gitlab.com/tozd/regex2json/-/issues/2
 exec chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf"
