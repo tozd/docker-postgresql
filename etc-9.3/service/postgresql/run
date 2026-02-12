@@ -55,4 +55,5 @@ fi
 # Is there any other script to run here?
 [ -f /etc/service/postgresql/run.initialization ] && source /etc/service/postgresql/run.initialization
 
-exec chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf"
+# PostgreSQL sends everything to stderr, so we redirect.
+exec chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" 2>&1

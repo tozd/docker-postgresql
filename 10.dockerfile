@@ -37,6 +37,5 @@ RUN apt-get update -q -q && \
   chown postgres:postgres /var/run/postgresql/10-main.pg_stat_tmp && \
   apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ~/.cache ~/.npm
 
-COPY ./etc/service/postgresql /etc/service/postgresql
-COPY ./log-9.3 /etc/service/postgresql/log
+COPY ./etc-9.3/service/postgresql /etc/service/postgresql
 COPY ./postgresql-9.3 /etc/postgresql/10
