@@ -18,7 +18,7 @@ else
   DATADIR="/var/lib/postgresql/$VERSION/main"
 
   # Redirect PostgreSQL's log to stdout.
-  mkdir -p "${DATADIR}/log
+  mkdir -p "${DATADIR}/log"
   chown postgres:postgres "${DATADIR}/log"
   ln -sf /dev/stdout "${DATADIR}/log/postgresql.json"
 

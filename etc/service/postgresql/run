@@ -56,7 +56,7 @@ fi
 [ -f /etc/service/postgresql/run.initialization ] && source /etc/service/postgresql/run.initialization
 
 # Redirect PostgreSQL's log to stdout.
-mkdir -p "${DATADIR}/log
+mkdir -p "${DATADIR}/log"
 chown postgres:postgres "${DATADIR}/log"
 ln -sf /dev/stdout "${DATADIR}/log/postgresql.json"
 
