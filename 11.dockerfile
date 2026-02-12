@@ -39,4 +39,4 @@ RUN apt-get update -q -q && \
 
 COPY ./etc/service/postgresql /etc/service/postgresql
 COPY ./log-9.3 /etc/service/postgresql/log
-COPY ./postgresql9.3 /etc/postgresql/11
+COPY ./postgresql-9.3 /etc/postgresql/11
