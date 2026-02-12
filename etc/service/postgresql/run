@@ -55,4 +55,9 @@ fi
 # Is there any other script to run here?
 [ -f /etc/service/postgresql/run.initialization ] && source /etc/service/postgresql/run.initialization
 
+# Create a named pipe for PostgreSQL to log to. We then read from it in the log script.
+mkfifo /var/run/postgresql.log
+chown postgres:postgres /var/run/postgresql.log
+chmod 600 /var/run/postgresql.log
+
 exec chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf"
