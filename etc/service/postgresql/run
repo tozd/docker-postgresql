@@ -56,7 +56,10 @@ fi
 [ -f /etc/service/postgresql/run.initialization ] && source /etc/service/postgresql/run.initialization
 
 # Create a named pipe for PostgreSQL to log to. We then read from it in the log script.
-mkfifo /var/run/postgresql.log
+if [ ! -p /var/run/postgresql.log ]; then
+  rm -f /var/run/postgresql.log
+  mkfifo /var/run/postgresql.log
+fi
 chown postgres:postgres /var/run/postgresql.log
 chmod 600 /var/run/postgresql.log
 
