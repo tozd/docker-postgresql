@@ -8,6 +8,15 @@ if [ "${LOG_TO_STDOUT}" != "1" ]; then
 
   exec chpst -u nobody:nogroup svlogd -tt /var/log/postgresql
 else
+  # Create a named pipe for PostgreSQL to log to. We then read from it.
+  # We do this both here and in the run script because it is not clear which will be run first.
+  if [ ! -p /var/run/postgresql.log ]; then
+    rm -f /var/run/postgresql.log
+    mkfifo /var/run/postgresql.log
+  fi
+  chown -f postgres:postgres /var/run/postgresql.log
+  chmod -f 600 /var/run/postgresql.log
+
   # We read from the named pipe created in the run script.
   exec chpst -u postgres:postgres  cat /var/run/postgresql.log
 fi
