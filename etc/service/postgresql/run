@@ -59,5 +59,8 @@ fi
 mkdir -p "${DATADIR}/log"
 chown postgres:postgres "${DATADIR}/log"
 ln -sf /dev/stdout "${DATADIR}/log/postgresql.json"
+chown -h postgres:postgres "${DATADIR}/log/postgresql.json"
 
-exec chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf"
+# We redirect stdout to stderr for initial (non-JSON) log messages.
+# Regular logging goes to stdout later on by the log service.
+exec chpst -u postgres:postgres:ssl-cert "${POSTGRES}" -D "${DATADIR}" -c config_file="${CONFDIR}/postgresql.conf" 1>&2
