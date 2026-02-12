@@ -18,6 +18,8 @@ else
   DATADIR="/var/lib/postgresql/$VERSION/main"
 
   # Redirect PostgreSQL's log to stdout.
+  mkdir -p "${DATADIR}/log
+  chown postgres:postgres "${DATADIR}/log"
   ln -sf /dev/stdout "${DATADIR}/log/postgresql.json"
 
   # TODO: Exit with 115. See: https://gitlab.com/tozd/dinit/-/issues/1
