@@ -18,7 +18,7 @@ else
   DATADIR="/var/lib/postgresql/$VERSION/main"
 
   # Redirect PostgreSQL's log to stdout.
-  ln -sf /dev/stdout "${DATADIR}/log/postgresql.log"
+  ln -sf /dev/stdout "${DATADIR}/log/postgresql.json"
 
   # TODO: Exit with 115. See: https://gitlab.com/tozd/dinit/-/issues/1
   exec chpst -u nobody:nogroup cat
