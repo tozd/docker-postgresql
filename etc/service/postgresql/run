@@ -49,7 +49,7 @@ if ! [[ $(ls -A "${DATADIR}" | grep -v placeholder) ]]; then
         sleep 1
       done
       # This output is not JSON, so we redirect it to stderr.
-      /usr/bin/psql -U postgres -c "CREATE EXTENSION postgis;" -d "${PGSQL_DB_1_NAME}" 2>&1 || true
+      /usr/bin/psql -U postgres -c "CREATE EXTENSION postgis;" -d "${PGSQL_DB_1_NAME}" 1>&2 || true
       kill "$TMP_PID"
       wait "$TMP_PID"
     fi
