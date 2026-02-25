@@ -33,7 +33,7 @@ docker run -d --name test --network testnet -e LOG_TO_STDOUT=1 -e PGSQL_ROLE_1_U
 cleanup_docker=1
 
 echo "Sleeping"
-sleep 10
+sleep 20
 
 echo "Testing"
 docker run --rm --network testnet --entrypoint '' -e PGPASSWORD=test "${CI_REGISTRY_IMAGE}:${TAG}" psql -h test -U test -d test -c "SELECT 1"
