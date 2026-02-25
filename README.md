@@ -27,6 +27,11 @@ Available as:
 - `17`: PostgreSQL 17
 - `18`: PostgreSQL 18
 
+## Architectures
+
+- `amd64`
+- `arm64`
+
 ## Volumes
 
 - `/var/log/postgresql`: Log files when `LOG_TO_STDOUT` is not set to `1`.
